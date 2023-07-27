@@ -1,0 +1,33 @@
+pipeline {
+    agent any
+    stages {
+        stage('Build') {
+            steps {
+                sh 'echo "Building the application"'
+                // Add build steps here, e.g., compiling, packaging, etc.
+            }
+        }
+        stage('Test') {
+            steps {
+                sh 'echo "Running tests"'
+                // Add test execution steps here, e.g., unit tests, integration tests, etc.
+            }
+        }
+        stage('Containerize') {
+            steps {
+                sh 'echo "Building Docker image"'
+                // Build the Docker image using the Dockerfile
+                sh 'docker build -t your_image_name .'
+            }
+        }
+        stage('Deploy to Production') {
+            when {
+                branch 'master'
+            }
+            steps {
+                sh 'echo "Deploying to production"'
+                // Add steps to deploy to production, e.g., push Docker image, deploy to servers, etc.
+            }
+        }
+    }
+}
